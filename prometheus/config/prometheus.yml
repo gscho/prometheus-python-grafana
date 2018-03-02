@@ -6,7 +6,7 @@ global:
   # Attach these labels to any time series or alerts when communicating with
   # external systems (federation, remote storage, Alertmanager).
   external_labels:
-    monitor: 'codelab-monitor'
+    monitor: 'python-monitor'
 
 # A scrape configuration containing exactly one endpoint to scrape:
 # Here it's Prometheus itself.
@@ -23,5 +23,8 @@ scrape_configs:
   # Scrape the Node Exporter every 5 seconds.
   - job_name: 'python-node'
     scrape_interval: 5s
-    static_configs:
-      - targets: ['localhost:9100']
+    dns_sd_configs:
+    - names:
+      - 'python-node'
+      type: 'A'
+      port: 9001
